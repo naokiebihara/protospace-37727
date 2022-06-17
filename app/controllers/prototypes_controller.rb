@@ -3,15 +3,20 @@ class PrototypesController < ApplicationController
   before_action :set_prototype, only: [:edit, :show]
   
   def index
-    @prototypes = prototype.all
+    @prototypes = Prototype.all
   end
 
   def new
-    @prototype = prototype.new
+    @prototype = Prototype.new
   end
 
   def create
-    Prototype.create(prototype_params)
+    @prototype = Prototype.new(prototype_params)
+    if @prototype.save
+      redirect_to root_path
+    else
+      render :new
+    end
   end
 
   def destroy
