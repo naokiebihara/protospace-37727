@@ -21,11 +21,14 @@ class PrototypesController < ApplicationController
 
   def destroy
     prototype = Prototype.find(params[:id])
-    prototype.destroy
+    prototype.delete
     redirect_to root_path
   end
 
   def edit
+    unless current_user.id == @prototype.user_id
+      redirect_to root_path
+    end
   end
 
   def update
@@ -38,15 +41,14 @@ class PrototypesController < ApplicationController
   end
 
   def show
-    
+    @comment = Comment.new
+    @comments = @prototype.comments.includes(:user)
   end
-
 
   private
+
   def prototype_params
     params.require(:prototype).permit(:title, :catch_copy, :concept, :image).merge(user_id: current_user.id)
-  end
-
   end
 
   def set_prototype
@@ -58,3 +60,4 @@ class PrototypesController < ApplicationController
       redirect_to action: :index
     end
   end
+end
