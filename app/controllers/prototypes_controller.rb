@@ -33,7 +33,9 @@ class PrototypesController < ApplicationController
   end
 
   def show
+    
   end
+
 
   private
   def prototype_params
@@ -43,7 +45,7 @@ class PrototypesController < ApplicationController
   end
 
   def set_prototype
-    @Prototype = Prototype.find(params[:id])
+    @prototype = Prototype.find(params[:id])
   end
 
   def move_to_index
