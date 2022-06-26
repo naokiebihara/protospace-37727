@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_19_050511) do
+ActiveRecord::Schema.define(version: 2022_06_22_212150) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -34,13 +34,13 @@ ActiveRecord::Schema.define(version: 2022_06_19_050511) do
   end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id_id"
-    t.bigint "prototype_id_id"
-    t.text "text"
+    t.bigint "user_id"
+    t.bigint "prototype_id"
+    t.text "text", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["prototype_id_id"], name: "index_comments_on_prototype_id_id"
-    t.index ["user_id_id"], name: "index_comments_on_user_id_id"
+    t.index ["prototype_id"], name: "index_comments_on_prototype_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "prototypes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -70,5 +70,7 @@ ActiveRecord::Schema.define(version: 2022_06_19_050511) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "prototypes"
+  add_foreign_key "comments", "users"
   add_foreign_key "prototypes", "users"
 end
